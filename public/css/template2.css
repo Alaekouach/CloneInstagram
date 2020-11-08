@@ -1,0 +1,75 @@
+/* css du header de la template2*/
+
+@font-face {
+    font-family: "billabong";
+    src: url("../fonts/billabong-cufonfonts/Billabong.ttf");
+   }
+
+.icon-search{
+    position:absolute;
+    font-size:70%;
+    color:gray;
+    margin-top:18px;
+    margin-left:40px;
+}
+
+.barre{
+    width:200px;
+    height: 27px;
+    font-size:0.8rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.icons{
+    margin-top: 10px;
+    font-size:130%;
+}
+
+.icons .icon-user{
+    color: gray;
+}
+
+
+/* css du main de la page d'accueil */
+
+.barre-main{
+
+    height: 110px;
+}
+
+.publication{
+
+    height: auto;
+}
+
+.img-barre-main{
+    width: 100%;
+    
+}
+
+.sidebar{
+    margin-left: 700px;
+}
+
+#menu-toggle{
+    margin-right: 300px;
+    margin-top: 6px;
+}
+
+.imgs img{
+    width: 80%;
+}
+
+
+/* css de la page modification du profil */
+
+.modif{
+    margin-top: 80px;
+}
+
+.name{
+    margin-left: 60px;
+    margin-top:30px;
+
+}
