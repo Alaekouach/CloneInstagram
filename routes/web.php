@@ -64,7 +64,7 @@ Route::get('profil-admin',[
     'as'=> 'cloneinstagram.profil-admin'
 ]);
 
-Route::get('profil-user',[
+Route::get('profil-user/{id}',[
     'uses'=>'ProfilController@profil_user',
     'as'=> 'cloneinstagram.profil-user'
 ]);
@@ -77,6 +77,18 @@ Route::get('modifier-profil',[
 Route::post('change-profil',[
     'uses'=>'ProfilController@change_profil',
     'as'=> 'cloneinstagram.change-profil'
+]);
+
+// Routes pour ajouter un follower
+
+Route::get('ajout-follower/{id}',[
+    'uses'=>'ProfilController@ajout_follower',
+    'as'=> 'cloneinstagram.ajout-follower'
+]);
+
+Route::get('supprimer-follower/{id}',[
+    'uses'=>'ProfilController@supprimer_follower',
+    'as'=> 'cloneinstagram.supprimer-follower'
 ]);
 
 
@@ -101,7 +113,7 @@ Route::POST('ajout-commentaire/{id}',[
 
 //Route pour l'ajout des likes
 
-Route::POST('ajout-like/{id}',[
+Route::POST('ajout-like/',[
     'uses'=>'LikeController@ajout_like',
     'as'=> 'cloneinstagram.ajout-like'
 ]);

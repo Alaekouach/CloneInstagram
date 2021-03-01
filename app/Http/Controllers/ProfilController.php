@@ -13,12 +13,58 @@ class ProfilController extends Controller
     public function profil_admin()
     {
         $posts=Auth::user()->publications;
-        return view ('cloneinstagram.profils.profil-admin')->with(['posts'=>$posts]);
+        $abonnements=Auth::user()->users;
+
+        $id=Auth::user()->id;
+        $users=User::all();
+        $abonnés=[];
+
+        for($i=0;$i<$users->count();$i++)
+        {
+            for($j=0;$j<$users[$i]->users->count();$j++)
+            {
+                $one_user = $users[$i]->users[$j];
+
+                if($one_user->id == $id)
+                {
+                    array_push($abonnés,$users[$i]);
+                }
+            }
+        }
+
+        return view ('cloneinstagram.profils.profil-admin')->with(['posts'=>$posts,'abonnements'=>$abonnements,'abonnés'=>$abonnés]);
     }
 
-    public function profil_user()
+    public function profil_user($id)
     {
-        return view ('cloneinstagram.profils.profil-user');
+        $user=User::find($id);
+        $abonnements=$user->users;
+
+        $users=User::all();
+        $abonnés=[];
+
+        for($i=0;$i<$users->count();$i++)
+        {
+            for($j=0;$j<$users[$i]->users->count();$j++)
+            {
+                $one_user = $users[$i]->users[$j];
+
+                if($one_user->id == $id)
+                {
+                    array_push($abonnés,$users[$i]);
+                }
+            }
+        }
+
+        $t=Auth::user()->users;
+        $statut=0;
+            for($i=0;$i<$t->count();$i++)
+            {
+                if($t[$i]->id==$id)
+                    $statut=1;
+            }
+
+        return view ('cloneinstagram.profils.profil-user')->with(['statut'=>$statut,'user'=>$user,'abonnements'=>$abonnements,'abonnés'=>$abonnés]);
     }
 
     public function modifier_profil()
@@ -79,6 +125,38 @@ class ProfilController extends Controller
         $enregistre->save();
         return redirect()->route('cloneinstagram.accueil');
         
+    }
+
+
+    public function ajout_follower($id)
+    {
+        $u=Auth::user();
+        $etat=0;
+            for($i=0;$i<$u->users->count();$i++)
+            { 
+                if($u->users[$i]->id == $id)
+                {   
+                    $etat=1;
+                } 
+            }  
+
+            if($etat==0)
+            {
+                $u->users()->attach($id);
+            }
+                        
+            return redirect()->route('cloneinstagram.accueil');
+
+    }
+
+
+    public function supprimer_follower($id)
+    {
+
+        $u=Auth::user();
+        $u->users()->detach($id);
+        
+        return redirect()->route('cloneinstagram.accueil');
     }
 
 

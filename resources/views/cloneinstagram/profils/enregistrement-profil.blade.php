@@ -16,7 +16,7 @@
     <div class="container col-md-12 d-flex flex-wrap mt-4 mb-5  ">
     
     @foreach($posts as $element)
-                <img src="{{ $element->photo }}" alt="" style="width:300px;height:300px;" class="mb-4 mr-3">
+                <img src="{{ asset($element->photo) }}" alt="" style="width:300px;height:300px;" class="mb-4 mr-3">
         @endforeach 
           
     </div>

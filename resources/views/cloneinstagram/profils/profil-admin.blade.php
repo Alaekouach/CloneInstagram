@@ -9,6 +9,56 @@
     Modifier profil
 @endsection
 
+@section('main_profil_user')
+
+        <div class="container col-md-2 mt-2 mr-5  ">
+            <img src="{{ Auth::user()->profile_photo_path }}" alt="" style="width:170px;height:170px" class="rounded-circle ">
+        </div>
+
+        <div class="container col-md-7 mt-3">
+
+            <div class="d-flex justify-content-around">
+                <h3 class="font-weight-light" id="user" >{{ Auth::user()->name }}</h3>
+                <a href="{{ route('cloneinstagram.modifier-profil') }}" ><input type="submit" nom="modifier" class=" btn btn-sm border font-weight-bold " value="@yield('button-profil')" style="height:30px"></a>
+                <i class="fas fa-cog" style="font-size:32px"></i>
+            </div>
+
+            <div class="d-flex justify-content-around mt-3">
+                <p>{{  count($posts) }} publications</p>
+                <p>{{  count($abonnés) }} abonnés</p>
+                <p>{{  count($abonnements) }} abonnements</p>
+            </div>
+
+            <div class="container mt-2">
+                <p>{{ Auth::user()->name }}</p>
+            </div>
+
+            <div class="container mt-2">
+                <p>
+                    <small class="text-primary">
+                        <span style="color:gray">Abonnés :</span>
+                        @foreach($abonnés as $element) 
+                            <a href="{{ route('cloneinstagram.profil-user',[$element->id]) }}">{{ $element->name }}</a>,
+                        @endforeach
+                    </small> 
+                </p>
+            </div>
+
+            <div class="container mt-2">
+                <p>
+                    <small class="text-info">
+                        <span style="color:gray">Abonnements :</span>
+                        @foreach($abonnements as $element) 
+                            <a href="{{ route('cloneinstagram.profil-user',[$element->id]) }}">{{ $element->name }}</a>,
+                        @endforeach
+                    </small> 
+                </p>
+            </div>
+            
+        </div>
+
+@endsection
+
 
 @section('contenu1')
 

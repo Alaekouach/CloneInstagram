@@ -7,65 +7,29 @@
 
     <div class=" col-md-8 ">
 
-        <div class=" container barre-main bg-white border mt-5 mb-3 pt-2 d-flex">           
+        <div class=" container barre-main bg-white border mt-5 mb-3 pt-2 d-flex">
 
             <div id="gallery" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner imgs">
                     <div class="carousel-item active">
                         <div class="row">
-                            <div class="col-md-2 text-center pt-2" >
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
+                        @foreach($abonnements as $user)
+                            <div class="col-md-2 text-center pt-n2" >
+                                <img src="{{ $user->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail " style="width:180px;height:70px">
+                                <p><small>{{ $user->name }} </small></p>
                             </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
+                        @endforeach
                         </div>
                     </div>
 
                     <div class="carousel-item ">
                         <div class="row">
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
+                        @foreach($abonnements2 as $user)
+                            <div class="col-md-2 text-center pt-n2" >
+                                <img src="{{ $user->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail " style="width:180px;height:70px">
+                                <p><small>{{ $user->name }} </small></p>
                             </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
-                            <div class="col-md-2 text-center pt-2">
-                                <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="img-barre-main rounded-circle img-thumbnail  ">
-                                <p><small>{{ Auth::user()->name }} </small></p>
-                            </div>
+                        @endforeach
                         </div>
                     </div>
                 </div>
@@ -80,11 +44,12 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-        
+
         </div>
 
 
-        @foreach($posts as $element)
+        @foreach($tab as $key => $element)
+
         <div class="publication bg-white border mb-3">
 
             <div class="d-flex justify-content-between border" style="height:60px;">
@@ -97,23 +62,27 @@
                     <a href=""><p class="text-dark" style="font-size:30px;">...</p></a>
                 </div>
             </div>
-
+        
             <div class="mb-2">
-                <img src="{{ $element->photo }}" alt="" style="width:100%">
+                <img src="{{ $element->photo }}" alt="" style="width:100%;height:35%">
             </div>
-            
-            <div class="d-flex justify-content-between">
+
+
+            <div class="d-flex justify-content-between ">
                 <div class="col-md-2 d-flex justify-content-around ml-2 mt-1 " style="font-size:150%;">
-                    <form action="{{ route('cloneinstagram.ajout-like',[$element->id]) }}" method="Post" class="d-flex ml-4 border-0 bg-white">
+                    <form id="formulaire_submit" action=" {{ route('cloneinstagram.ajout-like') }} " method="POST" class="d-flex ml-4 border-0 " >
                         @csrf
 
-                        @if($element->like==1)
-                            <button type="submit" class="border-0 bg-white "><i class="fas fa-heart text-danger" style=" padding-left:15px;"></i></button>   
+                        <input type="hidden" name="publication_id" value="{{$element->id}}" class="publication">
+
+                        @if($changerStyle[$key] == 0)
+                            <button  type="submit"  class="border bg-white border-white" style=" outline: none"><i id="style{{$element->id}}" class="far fa-heart  " style=" margin-left:15px;"></i></button>
                         @else
-                            <button type="submit" class="border-0 bg-white "><i class="far fa-heart  " style=" padding-left:15px;"></i></button>   
+                            <button  type="submit"  class="border bg-white border-white" style=" outline: none"><i id="style{{$element->id}}" class="fas fa-heart " style=" margin-left:15px;"></i></button>
                         @endif
-                        <button type="" class="border-0 bg-white"><i class="far fa-comment" ></i></button>
-                        <button type="" class="border-0 bg-white"><i class="far fa-paper-plane text-dark" ></i></button>
+
+                        <i class="far fa-comment ml-2 mt-2" ></i>
+                        <i class="far fa-paper-plane text-dark ml-3 mt-2" ></i>
                     </form>
                 </div>
 
@@ -130,7 +99,7 @@
             </div>
 
             <div class="col-md-4 ml-2">
-                <p>{{ count($element->likes) }} J'aime</p>
+                <p ><span id="{{$element->id}}">{{$element->likes->count()}}</span><span> J'aime </span> </p>
             </div>
 
             <div class="col-md-12 ">
@@ -157,77 +126,58 @@
             <div class="container col-md-12 border mt-2">
                 <form action="{{ route('cloneinstagram.ajout-commentaire',[$element->id]) }}" method="POST" class=" ">
                     @csrf
-                    <input type="text" name="commentaire" id="" placeholder="Ajouter un commentaire..." class="col-md-9 border-0" style="height:60px " >
+                    <input type="text" name="commentaire"  placeholder="Ajouter un commentaire..." class="col-md-9 border-0" style="height:60px " >
                     <input type="submit" name="ajouter-commentaire" value="Publier" class="col-md-2 bg-white mt-3 text-info border-0 float-right font-weight-bold "  style="width:150px ">
                 </form>
             </div>
 
         </div>
+
         @endforeach
 
     </div>
 
     <div class="position-fixed col-md-3 mt-5 border sidebar">
 
-        <div class="container d-flex mt-4">
-            <img src="{{ Auth::user()->profile_photo_path }}" alt="" class="rounded-circle" style="height:25%; width:25%;">
+        <div class="container col-md-12 d-flex justify-content-between mt-4">
+        <a href="{{ route('cloneinstagram.profil-admin') }}" class="col-md-3"><img src="{{ Auth::user()->profile_photo_path }}" alt="" class="rounded-circle"  style="height:80%; width:100%;"></a>
 
-            <div class="container mt-3" style="line-height:1px;">
-                <p class="">{{ Auth::user()->name }}</p>
-                <p class="text-dark" style="font-size:0.85rem;">{{ Auth::user()->name }}</p>
+            <div class="container col-md-5 mt-3" style="">
+                <a href="{{ route('cloneinstagram.profil-admin') }}"><p class="">{{ Auth::user()->name }}</p></a>
+                <p class="text-dark mt-n3" style="font-size:0.85rem;">{{ Auth::user()->name }}</p>
             </div>
 
-            <input type="submit" value="Basculer" name="basculer" class="border-0 text-info bg-light float-right" style="font-size:0.75rem"> 
+            <input type="submit" value="Basculer" name="basculer" class="container col-md-3 border-0 text-info bg-light float-right" style="font-size:0.75rem">
         </div>
 
-        <div class="d-flex justify-content-between mt-3 ">
+        <div class="container col-md-10 d-flex justify-content-between mt-3 ">
             <p style="color:gray">Suggestions pour vous</p>
             <p><small>Voir tout</small></p>
         </div>
 
-        <div class="container d-flex mt-4">
-            <img src="pictures\profils-users\Lighthouse.jpg" alt="" class="rounded-circle" style="height:18%; width:15%;">
+        @foreach($users as $user)
+       
+        <div class="container col-md-10 d-flex mt-2">
+            
+            <img src="{{ $user->profile_photo_path }}" alt="" class="col-md-3 rounded-circle" style="height:14%; width:12%;">
+            
+            <div class=" col-md-10 d-flex justify-content-between">
+                <a href="{{ route('cloneinstagram.profil-user',[$user->id]) }}"><div class="container  mt-1" style="line-height:2px;font-size:0.9rem;" >
+                    <p>{{ $user->name }}</p>
+                    <p class="" style="font-size:0.85rem;color:gray"><small> Suivi(e) par: </small></p>
+                </div></a>
+            @foreach($tableau as $table)
+                @if($table->id == $user->id)
+                <a href="{{ route('cloneinstagram.supprimer-follower',[$user->id]) }}"><input type="submit" value="Désabonner" name="basculer" class="border-0 text-info bg-light float-right" style="font-size:0.75rem"></a>               
+                @endif
+            @endforeach
 
-            <div class="container mt-1" style="line-height:2px;font-size:0.9rem;" >
-                <p>Username</p>
-                <p class="" style="font-size:0.85rem;color:gray"><small> Abonné(e)s: Other Users</small></p>
             </div>
-
-            <input type="submit" value="S'abonner" name="basculer" class="border-0 text-info bg-light float-right" style="font-size:0.75rem"> 
         </div>
+        
+        @endforeach
 
-        <div class="container d-flex mt-4">
-            <img src="pictures\profils-users\Lighthouse.jpg" alt="" class="rounded-circle" style="height:18%; width:15%;">
-
-            <div class="container mt-1" style="line-height:2px;font-size:0.9rem;" >
-                <p>Username</p>
-                <p class="" style="font-size:0.85rem;color:gray"><small> Abonné(e)s: Other Users</small></p>
-            </div>
-
-            <input type="submit" value="S'abonner" name="basculer" class="border-0 text-info bg-light float-right" style="font-size:0.75rem"> 
-        </div>
-
-        <div class="container d-flex mt-4">
-            <img src="pictures\profils-users\Lighthouse.jpg" alt="" class="rounded-circle" style="height:18%; width:15%;">
-
-            <div class="container mt-1" style="line-height:2px;font-size:0.9rem;" >
-                <p>Username</p>
-                <p class="" style="font-size:0.85rem;color:gray"><small> Abonné(e)s: Other Users</small></p>
-            </div>
-
-            <input type="submit" value="S'abonner" name="basculer" class="border-0 text-info bg-light float-right" style="font-size:0.75rem"> 
-        </div>
-
-        <div class="container d-flex mt-4">
-            <img src="pictures\profils-users\Lighthouse.jpg" alt="" class="rounded-circle" style="height:18%; width:15%;">
-
-            <div class="container mt-1" style="line-height:2px;font-size:0.9rem;" >
-                <p>Username</p>
-                <p class="" style="font-size:0.85rem;color:gray"><small> Abonné(e)s: Other Users</small></p>
-            </div>
-
-            <input type="submit" value="S'abonner" name="basculer" class="border-0 text-info bg-light float-right" style="font-size:0.75rem"> 
-        </div>
+               
 
         <div class="mt-3">
 
@@ -245,7 +195,7 @@
             <a href=""><li><small class=" " style="color:gray">Langue</small></li></a>
             </ul>
 
-            <div class="container col-md-12" style="color:gray">
+            <div class="text-center col-md-12" style="color:gray">
                 <small >© 2020 INSTAGRAM PAR FACEBOOK</small>
             </div>
 

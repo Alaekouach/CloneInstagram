@@ -21,7 +21,7 @@
     <div class="container col-md-8 d-flex " style="height:50px;">
 
         <div class="col-md-4">
-            <h2 class="display-5 mt-2" style="font-family:billabong">Instagram </h2>
+        <a href="{{ route('cloneinstagram.accueil') }}"><h2 class="display-5 mt-2" style="font-family:billabong">Instagram </h2></a>
         </div>
 
         <div class="container col-md-4">
@@ -58,35 +58,7 @@
 <main class="container col-md-8 mt-5 pt-2">
 
     <div class="col-md-10 d-flex mt-4">
-
-        <div class="container col-md-2 mt-2 mr-5  ">
-            <img src="{{ Auth::user()->profile_photo_path }}" alt="" style="width:170px;height:170px" class="rounded-circle ">
-        </div>
-
-        <div class="container col-md-7 mt-3">
-
-            <div class="d-flex justify-content-around">
-                <h3 class="font-weight-light" id="user" >{{ Auth::user()->name }}</h3>
-                <a href="{{ route('cloneinstagram.modifier-profil') }}" ><input type="submit" nom="modifier" class=" btn btn-sm border font-weight-bold " value="@yield('button-profil')" style="height:30px"></a>
-                <i class="fas fa-cog" style="font-size:32px"></i>
-            </div>
-
-            <div class="d-flex justify-content-around mt-3">
-                <p>{{  count(Auth::user()->publications) }} publications</p>
-                <p>50 abonnés</p>
-                <p>162 abonnements</p>
-            </div>
-
-            <div class="container mt-2">
-                <p>{{ Auth::user()->name }}</p>
-            </div>
-
-            <div class="container mt-2">
-                <p><small><span style="color:gray">Abonnée :</span>  user1, user2</small> </p>
-            </div>
-            
-        </div>
-
+        @yield('main_profil_user')
     </div>
 
     <div>
@@ -110,7 +82,7 @@
         </div>
 
         <div class="m-auto d-flex col-md-3 ">
-            <a href="{{ route('cloneinstagram.enregistrement-profil') }}"><img src="..\pictures\icons\bookmark.svg" alt="" style="width:12px; height:12px" class="mr-1 ">
+            <a href=""><img src="..\pictures\icons\bookmark.svg" alt="" style="width:12px; height:12px" class="mr-1 ">
             <label for="" style="color:grey;font-size:0.8rem">ENREGISTREMENTS</label></a>
         </div>
 

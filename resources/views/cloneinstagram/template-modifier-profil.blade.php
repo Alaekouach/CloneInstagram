@@ -20,7 +20,7 @@
     <div class="container col-md-8 d-flex " style="height:50px;">
 
         <div class="col-md-4">
-            <h2 class="display-5 mt-2" style="font-family:billabong">Instagram </h2>
+            <a href="{{ route('cloneinstagram.accueil') }}"><h2 class="display-5 mt-2" style="font-family:billabong">Instagram </h2></a>
         </div>
 
         <div class="container col-md-4">

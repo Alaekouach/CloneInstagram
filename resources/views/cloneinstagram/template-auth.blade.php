@@ -26,7 +26,7 @@
 
             <div class="container col-md-6 mt-3 ">
                 <div class="bg-white border" style="border-color:rgb(218,220,224)">
-                    <h1 class="display-4 text-center mt-3 mb-3" style="font-family:billabong">Instagram</h1>
+                <a href="{{ route('cloneinstagram.accueil') }}"><h2 class="display-5 mt-2" style="font-family:billabong">Instagram </h2></a>
 
                     <div class="container col-md-11 text-center">
                         @yield('contenu1')
